@@ -28,10 +28,10 @@ for user in usernames:
 			raise Exception("Twitter user must exist: {}".format(user))
 
 		# Output tweets to csv following convention username_YYYY-MM-DD.csv
-		tweets.to_csv(user+timestamp+".csv", index_col=False)
+		tweets.to_csv(user+timestamp+".csv", index=False)
 
 	# Append tweet texts to master dataframe of tweet texts
-	tweets_df = tweets_df.append(tweets)
+	tweets_df = tweets_df.append(tweets, sort=False)
 
 # Calculate probabilites
 GEN_SPACE_SYMBOLS = re.compile(r"[,“”\"-_.?!]")
@@ -41,6 +41,7 @@ lookup = {}
 for idx, row in tweets_df.iterrows():
 	linkless_tweet = re.sub(r"http[s]?://\S+", "", row[0])
 	linkless_tweet = re.sub(r"pic.twitter.com\S+", "", linkless_tweet)
+	linkless_tweet = re.sub(r"@\S+", "", linkless_tweet)
 	tweet = re.sub(GEN_SPACE_SYMBOLS, ' ', re.sub(GEN_BLANK_SYMBOLS, '', linkless_tweet.lower())).strip()	
 	words = re.split(r'\s+', tweet)
 
