@@ -1,0 +1,8 @@
+# markovchain.py: 1
+GetOldTweets3 == 0.0.9
+
+# markovchain.py: 3
+numpy == 1.15.4
+
+# markovchain.py: 2
+pandas == 0.24.1

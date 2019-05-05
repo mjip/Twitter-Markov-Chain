@@ -11,6 +11,9 @@ parser.add_argument("--limit", help="limit of tweets to scrape, reduces runtime"
 parser.add_argument("--gen", help="specify number of tweets to generate", default=10)
 args = parser.parse_args()
 
+if not args.users:
+	raise Exception("Specify user to create Markov chain from")
+
 tweets_df = pd.DataFrame([])
 usernames = args.users.split(",")
 for user in usernames:
@@ -25,7 +28,7 @@ for user in usernames:
 		tweets = pd.DataFrame([tweet.text for tweet in got.manager.TweetManager.getTweets(tweetCriteria)])
 
 		if tweets.empty:
-			raise Exception("Twitter user must exist: {}".format(user))
+			raise Exception("Twitter user must exist and have tweets that aren't links: {}".format(user))
 
 		# Output tweets to csv following convention username_YYYY-MM-DD.csv
 		tweets.to_csv(user+timestamp+".csv", index=False)
