@@ -4,7 +4,7 @@ import numpy as np
 from datetime import datetime
 import argparse, os, re
 
-
+# Start CLI work 
 parser = argparse.ArgumentParser()
 parser.add_argument("--users", help="twitter user handles to grab tweets from, comma-separated", default="")
 parser.add_argument("--limit", help="limit of tweets to scrape, reduces runtime", default=100000)
